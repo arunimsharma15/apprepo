@@ -14,5 +14,16 @@ environment {
                 sh 'mvn clean deploy'
             }
         }
+        stage("SonarQube analysis"){
+
+        environment {
+            scannerHome = tool 'arunim-sonar-scanner'
+            }
+        steps{
+            withSonarQubeEnv('arunim-sonarqube-server') { 
+            sh "${scannerHome}/bin/sonar-scanner"
+        }    
+        }
     }
+}
 }
