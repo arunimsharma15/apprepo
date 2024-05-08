@@ -90,6 +90,7 @@
 				<configuration>
 					<argLine>${argLine} -Xmx4096m</argLine>
 					<forkedProcessExitTimeoutInSeconds>1200</forkedProcessExitTimeoutInSeconds>
+					<reuseForks>false</reuseForks>
 				</configuration>
 			</plugin>
 
