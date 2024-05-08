@@ -4,11 +4,14 @@ pipeline {
             label 'maven'
         }
     }
+environment {
+    PATH = "/opt/maven/apache-maven-3.9.6/bin:$PATH"
+}
 
     stages {
-        stage('Clone-code') {
+        stage("build"){
             steps {
-                git branch: 'main', url: 'https://github.com/arunimsharma15/apprepo.git'
+                sh 'mvn clean deploy'
             }
         }
     }
