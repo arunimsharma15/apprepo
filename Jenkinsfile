@@ -6,7 +6,7 @@ pipeline {
     }
     environment {
         PATH = "/opt/maven/apache-maven-3.9.6/bin:$PATH"
-        MAVEN_OPTS = "-Xmx512m"
+        MAVEN_OPTS = "-Xmx4096m"
         SONAR_SCANNER_OPTS = "-Xmx512m"
     }
 
