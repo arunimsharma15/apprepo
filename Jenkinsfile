@@ -96,7 +96,10 @@ pipeline {
                 docker.withRegistry(registry, 'artifactory_cred'){
                     app.push()
                 }    
-               echo '<--------------- Docker Publish Ended --------------->'  
+               echo '<--------------- Docker Publish Ended --------------->'
+               echo '<--------------- Docker Cleanup Started --------------->'
+               sh "docker rmi ${imageName}:${version}"
+               echo '<--------------- Docker Cleanup Ended --------------->'
             }
         }
     }
