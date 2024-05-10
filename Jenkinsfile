@@ -1,4 +1,4 @@
-def registry = 'ttps://arunim.jfrog.io'
+def registry = 'https://arunim.jfrog.io'
 
 pipeline {
     agent {
