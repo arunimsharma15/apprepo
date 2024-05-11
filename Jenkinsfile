@@ -93,7 +93,7 @@ pipeline {
             steps {
                 script {
                     echo '<--------------- Docker Image Scan Started --------------->'
-                    sh 'trivy image --exit-code 1 --severity HIGH,CRITICAL ${imageName}:${version}'
+                    sh "trivy image --exit-code 1 --severity HIGH,CRITICAL ${imageName}:${version}"
                     echo '<--------------- Docker Image Scan Ended --------------->'
                 }
             }
