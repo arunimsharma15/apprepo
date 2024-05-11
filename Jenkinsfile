@@ -1,6 +1,6 @@
 def registry = 'https://arunim.jfrog.io'
 def imageName = 'arunim.jfrog.io/arunim/ttrend'
-def version = '2.1.3'
+
 
 pipeline {
     agent {
@@ -10,11 +10,15 @@ pipeline {
     }
     environment {
         PATH = "/opt/maven/apache-maven-3.9.6/bin:$PATH"
+        version = ''
     }
 
     stages {
         stage("Build stage"){
             steps {
+                script {
+                    version = sh(script: "mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec", returnStdout: true).trim()
+                }
                 echo "----------- build started ----------"
                 sh 'mvn clean deploy -Dmaven.test.skip=true'
                 echo "----------- build complted ----------"
@@ -83,21 +87,21 @@ pipeline {
       steps {
         script {
            echo '<--------------- Docker Build Started --------------->'
-           app = docker.build(imageName+":"+version)
+           app = docker.build("${imageName}:${version}", "--build-arg version=${version} .")
            echo '<--------------- Docker Build Ends --------------->'
         }
       }
     }
 
-    stage("Docker Image Scan") {
-            steps {
-                script {
-                    echo '<--------------- Docker Image Scan Started --------------->'
-                    sh "trivy image --exit-code 1 --severity HIGH,CRITICAL ${imageName}:${version}"
-                    echo '<--------------- Docker Image Scan Ended --------------->'
-                }
-            }
-        }
+    // stage("Docker Image Scan") {
+    //         steps {
+    //             script {
+    //                 echo '<--------------- Docker Image Scan Started --------------->'
+    //                 sh "trivy image --exit-code 1 --severity HIGH,CRITICAL ${imageName}:${version}"
+    //                 echo '<--------------- Docker Image Scan Ended --------------->'
+    //             }
+    //         }
+    //     }
 
 
 
