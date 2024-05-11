@@ -1,6 +1,6 @@
 def registry = 'https://arunim.jfrog.io'
 def imageName = 'arunim.jfrog.io/arunim/ttrend'
-def version = '2.1.2'
+def version = '2.1.3'
 
 pipeline {
     agent {
@@ -88,6 +88,18 @@ pipeline {
         }
       }
     }
+
+    stage("Docker Image Scan") {
+            steps {
+                script {
+                    echo '<--------------- Docker Image Scan Started --------------->'
+                    sh 'trivy image --exit-code 1 --severity HIGH,CRITICAL ${imageName}:${version}'
+                    echo '<--------------- Docker Image Scan Ended --------------->'
+                }
+            }
+        }
+
+
 
             stage (" Docker Publish "){
         steps {
