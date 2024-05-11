@@ -21,7 +21,7 @@ pipeline {
                 sh 'mvn clean deploy -Dmaven.test.skip=true'
 
                 script {
-                    version = sh(script: "mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec", returnStdout: true).trim()
+                    version = sh(script: "mvn -q -Dexec.executable=echo -Dexec.args='\${project.version}' --non-recursive exec:exec", returnStdout: true).trim()
                 }
                 echo "----------- build complted ----------"
 
