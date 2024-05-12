@@ -17,7 +17,7 @@ spec:
         - name: jfrogcred
       containers:
         - name: arunim-rtp
-          image: arunim.jfrog.io/arunim/ttrend
+          image: arunim.jfrog.io/arunim/ttrend:2.1.4
           imagePullPolicy: Always
           ports:
             - containerPort: 8000
