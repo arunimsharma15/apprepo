@@ -118,7 +118,7 @@ pipeline {
                echo '<--------------- Docker Publish Ended --------------->'
                echo '<--------------- Docker Cleanup Started --------------->'
                sh "docker rmi ${imageName}:${version}"
-               sh "docker rmi $(docker images -f "dangling=true" -q)"
+               sh 'docker rmi $(docker images -f "dangling=true" -q)'
                sh "docker rmi openjdk:17"
                echo '<--------------- Docker Cleanup Ended --------------->'
             }
